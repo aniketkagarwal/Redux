@@ -1,0 +1,33 @@
+A function is called pue if it abides by the following rules-
+
+  1. A function returns the same result for same arguments.
+  2. Its evaluation has no side effects, i.e., it does not alter input data.
+  3. No mutation of local and global variables.
+  4. It does not depend on the external state like a global variable.
+  
+As per the three principles in redux, changes must be made by a pure function, i.e., reducer in Redux.
+
+Suppose, you want to dispatch an action whose type is 'ADD_TO_CART_SUCCESS' to add an item to your shopping cart application by clicking add to cart button.
+Let us assume the reducer is adding an item to your cart as given below-
+
+  const initialState = {
+    isAddedToCart: false;
+  }
+  const addToCartReducer = (state = initialState, action) => {
+    switch(action.type) {
+      case 'ADD_TO_CART_SUCCESS':
+        state.isAddedToCart = !state.isAddedToCart;
+        return state;
+      default:
+        return state;
+    }
+  }
+  export default addToCartReducer;
+  
+Let us suppose, isAddedToCart is a property on state object that allows you to decide when to disable 'add to cart' button for the item by returning a Boolean value 'true or false'. This prevents user to add same product multiple times.
+Now, instead os returning a new object, we are mutating isAddedToCart prop on the state like above. Now if we try to add an item to cart, nothing happens. Add to cart will not get disabled.
+
+The reason for this behaviour is as follows-
+
+Redux compares old and new objects by the memory location of both the objects. It expects a new object from reducer if any change has happened. And it also expects to get the old object back if no change occurs. In this case, it is the same. Due to this reason, Redux assumes that nothing has happened.
+So, it is necessary for a reducer to be a pure function in Redux.
