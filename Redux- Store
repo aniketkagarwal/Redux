@@ -1,0 +1,34 @@
+A store is an immutable object tree in Redux. A store is a state container which holds the application's state. Redux can have only a single store in the application. Whenever the store is created, we need to specify the reducer.
+
+Creating a store using the createStore method from Redux-
+
+  import { createStore } from 'redux';
+  import reducer from './reducers/reducer'
+  const store = createStore(reducer);
+  
+The syntax of createStore function is as follows-
+
+  createStore(reducer, [preloadedState], [enhancer])
+  
+  A reducer is a function that returns the next state of app.
+  A preloadedState is an optional argument and is the initial state of the app.
+  An enhancer is also an optional argument that helps in enhancing store with third-party capabilities.
+  
+A store has three important methods as given below-
+
+  1. getState
+     It helps to retrieve the current state of your Redux store. The syntax for getState is as follows-
+        store.getState()
+        
+  2. dispatch
+     It allows you to dispatch an action to change a state in your appliaction. The syntax for dispatch is as follows-
+        store.dispatch({type:'ITEMS_REQUEST'})
+        
+  3. subscribe
+     It helps you register a callback that Redux store will call when an action has been dispatched. As soon as the Redux state has been updated, the view will re-render automatically.
+     The syntax for subscribe is as follows-
+        store.subscribe(() => {console.log(store.getState());})
+        
+     subscribe function usually returns a function for unsubscribing the listener. To unsubscribe the listener, we can use the below code-
+        const unsubscribe = store.subscribe(() => {console.log(store.getState());});
+        unsubscribe();
