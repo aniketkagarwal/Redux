@@ -1,0 +1,41 @@
+Actions are plain JavaScript object that must have a type attribute to indicate the type of action performed.
+Types should be defined as string constants in your application as given below-
+
+  const ITEMS_REQUEST = 'ITEMS_REQUEST';
+  
+To cause any change in the store, you need to dispatch an action first by using store.dispatch() function.
+The action object is as follows-
+
+  { type: GET_ORDER_STATUS, payload: {orderId, userId} }
+  { type: GET_WISHLIST_ITEMS, payload: userId }
+  
+Action Creators are the function that encapsulate the process of an action object. These functions simply return a plain JavaScript object which is an action.
+
+Initially, the isLoading state was false in the initialState object assuming nothing is loading. When data is received at browser, isLoading state will be returned as false in 'ITEMS_REQUEST_SUCCESS' action type in the corresponding reducer.
+The action creator is as follows-
+
+  const ITEMS_REQUEST = 'ITEMS_REQUEST';
+  const ITEMS_REQUEST_SUCCESS = 'ITEMS_REQUEST_SUCCESS';
+  export function itemsRequest(bool, startIndex, endIndex) {
+    let payload = {
+      isLoading: bool,
+      startIndex,
+      endIndex
+    }
+    return {
+      type: ITEMS_REQUEST,
+      payload
+    }
+  }
+  export function itemsRequestSuccess(bool) {
+    return {
+      type: ITEMS_REQUEST_SUCCESS,
+      isLoading: bool
+    }
+  }
+  
+To invoke a dispatch function, you need to pass action as an argument to dispatch function.
+
+  dispatch(itemsRequest(true, 1, 20));
+  dispatch(itemsRequestSuccess(false));
+  
