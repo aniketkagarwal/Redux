@@ -1,0 +1,50 @@
+Reducers are a pure function in Redux. Pure functions are predictable. Reducers are the only way to change states in Redux. Reducer function will accept the previous state of app and action being dispatched, calculate the next state and returns the new object.
+
+The following is the syntax of a reducer-
+
+  (state, action) => newState
+  
+Suppose we want to design a web page where a user can access product order status and see wishlist information. We can separate the logic in different reducers files, and make them work independently.
+Let us assume that GET_ORDER_STATUS action is dispatched to get the status of order corresponding to some order id and user id.
+
+  /reducer/orderStateReducer.js
+  import { GET_ORDER_STATUS } from '../constants/appConstant';
+  export default function (state={}, action) {
+    switch(action.type) {
+      case GET_ORDER_STATUS:
+        return {...state, orderStatusData: action.payload.orderStatus};
+      default:
+        return state;
+    }
+  }
+  
+Similarly, assume GET_WISHLIST_ITEMS action is dispatched to get the user's wishlist information respective of a user.
+
+  /reducer/getWishlistDataReducer.js
+  import { GET_WISHLIST_ITEMS } from '../constants/appConstant';
+  export default function (state={}, action) {
+    switch(action.type) {
+      case GET_WISHLIST_ITEMS:
+        return {...state, wishlistData: action.payload.wishlistData};
+      default:
+        return state;
+    }
+  }
+  
+Now we can combine both reducers by using Redux combineReducers utility. The combineReducers generate a function which returns an object whose values are different reducer functions. You can import all the reducers in index reducer file and combine them together as an object with their respective names.
+
+  /reducer/index.js
+  import { combineReducers } from 'redux';
+  import OrderStatusReducer from './orderStatusReducer';
+  import GetWishlistDataReducer from './getWishlistDataReducer';
+  
+  const rootReducer = combineReducers ({
+    orderStatusReducer: OrderStatusReducer,
+    getWishlistDataReducer: GetWishlistDataReducer
+  });
+  export default rootReducer;
+  
+Now, you can pass this rootReducer to the createStore method as follows-
+
+  const store = createStore(rootReducer);
+  
