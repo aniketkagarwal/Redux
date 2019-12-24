@@ -1,0 +1,31 @@
+Let us assume our application's state is described by a plain object called initialState which is as follows-
+
+  const initialState = {
+    isLoading: false
+  };
+  
+To change the state, one needs to dispatch an action.
+
+An action is a plain object that describes the intention to cause change with a type property. The type property tells what type of action has to be performed.
+The command for action is as follows-
+
+  return{
+    type: 'ITEMS_REQUEST', // action type
+    isLoading: true // payload information
+  }
+  
+  Actions and states are held together by a function called Reducer. The change, dispatched by an action, is performed by the reducer.
+  A reducer function that handles the 'ITEMS_REQUEST' action is as follows-
+  
+    const reducer = (state= initialState, action) => {
+      switch (action.type) {
+        case 'ITEMS_REQUEST':
+          return Object.assign({}, state, {
+            isLoading: action.isLoading
+          })
+        default:
+          return state;
+      }
+    }
+  
+  
