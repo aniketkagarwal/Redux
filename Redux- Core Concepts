@@ -14,18 +14,23 @@ The command for action is as follows-
     isLoading: true // payload information
   }
   
-  Actions and states are held together by a function called Reducer. The change, dispatched by an action, is performed by the reducer.
-  A reducer function that handles the 'ITEMS_REQUEST' action is as follows-
+Actions and states are held together by a function called Reducer. The change, dispatched by an action, is performed by the reducer.
+A reducer function that handles the 'ITEMS_REQUEST' action is as follows-
   
-    const reducer = (state= initialState, action) => {
-      switch (action.type) {
-        case 'ITEMS_REQUEST':
-          return Object.assign({}, state, {
-            isLoading: action.isLoading
-          })
-        default:
-          return state;
-      }
+  const reducer = (state= initialState, action) => {
+    switch (action.type) {
+      case 'ITEMS_REQUEST':
+        return Object.assign({}, state, {
+          isLoading: action.isLoading
+        })
+      default:
+        return state;
     }
+  }
   
-  
+Redux follows the unidirectional data flow. It reduces the complexity of the code, by enforcing the restriction on how and when state update can happen.
+
+  1. An action is dispatched when a user interacts with the application.
+  2. The root reducer function is called with the current state and the dispatched action. The root reducer may divide the task among smaller reducer functions, which ultimately returns a new state.
+  3. The store notifies the view by executing their callback functions.
+  4. The view can retrieve updated state and re-render again.
