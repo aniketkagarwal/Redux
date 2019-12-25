@@ -1,0 +1,24 @@
+{
+  "name": "redux",
+  "version": "1.0.0",
+  "description": "redux-example",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aniketkagarwal/Redux.git"
+  },
+  "keywords": [
+    "redux",
+    "react",
+    "node"
+  ],
+  "author": "Aniket Agarwal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aniketkagarwal/Redux/issues"
+  },
+  "homepage": "https://github.com/aniketkagarwal/Redux#readme"
+}
